@@ -142,7 +142,10 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::post('/upload-avatar', 'FileController@uploadAvatar');
 
 });
+
 Route::get('get-user-data','UserController@getUserData');
+Route::get('get-courses-data','CourseController@getCourseData');
+
 Route::post('/store-course', 'CourseController@saveCourse');
 Route::get('get-deals', 'DealsController@getDeals');
 Route::get('getThematics', 'UtilsController@getThematics');

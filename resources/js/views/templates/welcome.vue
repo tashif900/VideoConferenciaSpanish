@@ -39,56 +39,56 @@
                         </carousel>
                     </div>
                 </div> -->
-                <div class="row d-flex">
-                    <div class="col-md-6 my-5">
-                        <div class="col-md-12 text-center">
-                            <h2>Professionales</h2>
-                            <label>Registrate gratis para llegar a mas personas</label>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 class-carousel" v-for="professional,index in professionals" v-bind:key=index>
-                                <div class="card-carousel">
-                                    <div class="card-carousel-img d-flex justify-content-center align-items-end pointer">
-                                        <img :src="professional.user_photo" alt="">
-                                        <!-- <img v-else src="img/002.jpg" alt=""> -->
+            </div>
+            <div class="row d-flex px-2">
+                <div class="col-md-6 my-5">
+                    <div class="col-md-12 text-center">
+                        <h2>Professionales</h2>
+                        <label>Registrate gratis para llegar a mas personas</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 class-carousel" v-for="professional,index in professionals" v-bind:key=index>
+                            <div class="card-carousel">
+                                <div class="card-carousel-img d-flex justify-content-center align-items-end pointer">
+                                    <img :src="professional.user_photo" alt="">
+                                    <!-- <img v-else src="img/002.jpg" alt=""> -->
+                                </div>
+                                <div class="card-carousel-body px-2 pb-2 border">
+                                    <div style="margin-bottom: -19px">
+                                        <p class="small"><strong>{{professional.user_name}}</strong></p>
                                     </div>
-                                    <div class="card-carousel-body px-2 pb-2 border">
-                                        <div>
-                                            <p class="small">{{professional.user_name}}</p>
-                                        </div>
-                                        <div>
-                                            <star-rating :rating="3" :show-rating="false" :read-only="true" :star-size="16"></star-rating>
-                                        </div>
-                                        <span class="card-carousel-body-teacher-status">Activo</span>
-                                        <button class="btn btn-custom-blue btn-rounded carousel-btn">Ver Perfil</button>
+                                    <div>
+                                        <star-rating :rating="3" :show-rating="false" :read-only="true" :star-size="16"></star-rating>
                                     </div>
+                                    <span class="card-carousel-body-teacher-status">Activo</span>
+                                    <button class="btn btn-custom-blue btn-rounded carousel-btn">Ver Perfil</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 my-5">
-                        <div class="col-12 text-center">
-                            <h2>Cursos y Clases</h2>
-                            <label><span class="text-danger">Grabadas</span> y En vivo</label>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 class-carousel">
-                                <div class="card-carousel">
-                                    <div class="card-carousel-img d-flex justify-content-center align-items-end pointer">
-                                        <img src="files/1621447603MjwJ3.jpeg" alt="">
+                </div>
+                <div class="col-6 my-5">
+                    <div class="col-12 text-center">
+                        <h2>Cursos y Clases</h2>
+                        <label><span class="text-danger">Grabadas</span> y En vivo</label>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 class-carousel">
+                            <div class="card-carousel">
+                                <div class="card-carousel-img d-flex justify-content-center align-items-end pointer">
+                                    <img src="files/1621447603MjwJ3.jpeg" alt="">
+                                </div>
+                                <div class="card-carousel-body px-2 pb-2 border">
+                                    <div style="margin-bottom: -19px">
+                                        <p class="small"><strong>Curso: Curso</strong></p>
                                     </div>
-                                    <div class="card-carousel-body px-2 pb-2 border">
-                                        <div>
-                                            <h5>Curso: Curso</h5>
-                                        </div>
-                                        <div>
-                                            <star-rating :rating="3" :show-rating="false" :read-only="true" :star-size="16"></star-rating>
-                                        </div>
-                                        <p class="m-0"><strong>Profesional</strong>User</p>
-                                        <p><strong>Price</strong></p>
-                                        <p><strong>Promotion</strong> <span><small><del>Price</del></small></span></p>
-                                        <button class="btn btn-custom-blue btn-rounded carousel-btn">Ver</button>
+                                    <div>
+                                        <star-rating :rating="3" :show-rating="false" :read-only="true" :star-size="16"></star-rating>
                                     </div>
+                                    <p class="small"><strong>Profesional</strong>User</p>
+                                    <p class="small"><strong>Price</strong></p>
+                                    <p class="small"><strong>Promotion</strong> <span><small><del>Price</del></small></span></p>
+                                    <button class="btn btn-custom-blue btn-rounded carousel-btn">Ver</button>
                                 </div>
                             </div>
                         </div>
@@ -116,6 +116,7 @@
         mounted() {
             this.getWelcomeData();
             this.getProfessionals();
+            this.getCourses();
             $('.owl-prev').text('d');
             $('#show-modal-date').click(function() {
                 $('#modaldate3').modal('show');
@@ -125,12 +126,22 @@
             return {
                 data: [],
                 professionals:[],
+                courses:[],
             };
         },
         methods: {
             getProfessionals(){
                 axios.get('api/get-user-data').then((response)=>{
                     this.professionals = response.data.data;
+                }).catch(error => {
+                  console.log(error.response);
+                });
+            },
+            getCourses(){
+                axios.get('api/get-courses-data').then((response)=>{
+                    this.courses = response.data.data;
+                }).catch(error => {
+                  console.log(error.response);
                 });
             },
             getWelcomeData: function() {

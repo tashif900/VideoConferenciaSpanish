@@ -20,6 +20,11 @@ class CourseController extends Controller
     {
         $this->_file = new FileController;
     }
+
+    public function getUserData(){
+        $courses = Course::orderBy('id','desc')->paginate(6);
+        return $courses;
+    }
     
     public function saveCourse(Request $request){
         $rules = [
