@@ -41,9 +41,39 @@
                 </div> -->
             </div>
             <div class="row d-flex px-2">
-                <div class="col-md-6 my-5">
+
+                <div class="col-md-12 text-center mt-4 mb-2" style="color:#133C4E;">
+                    <h3>Encuentra a un professional o un servicio</h3>
+                </div>
+                <div class="col-md-12 d-flex justify-content-center mb-4">
+                    <div class="col-5 p-3 d-flex align-items-center text-white" style="background:#133C4E;">
+                        <div class="col-md-2 d-flex align-items-center">
+                            <i class="ti-menu-alt"></i>&nbsp;<span class="small">Categories</span>
+                        </div>
+                        <div class="col-md-4 ml-3">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle small" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Finanzas y contabilidad
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ml-5">
+                            <li class="nav-item nav-search-category d-flex align-items-center">
+                                <input type="text" placeholder="Buscar...">
+                                <i class="ti-search text-white ml-2 pointer"></i>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-5">
                     <div class="col-md-12 text-center">
-                        <h2>Professionales</h2>
+                        <h4>Professionales</h4>
                         <label>Registrate gratis para llegar a mas personas</label>
                     </div>
                     <div class="row">
@@ -67,31 +97,39 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 my-5">
+                <div class="col-6 mb-5">
                     <div class="col-12 text-center">
-                        <h2>Cursos y Clases</h2>
+                        <h4>Cursos y Clases</h4>
                         <label><span class="text-danger">Grabadas</span> y En vivo</label>
                     </div>
                     <div class="row">
-                        <div class="col-4 class-carousel">
+                        <div class="col-4 class-carousel" v-for="course,index in courses" v-bind:key=index>
                             <div class="card-carousel">
                                 <div class="card-carousel-img d-flex justify-content-center align-items-end pointer">
-                                    <img src="files/1621447603MjwJ3.jpeg" alt="">
+                                    <img :src="course.photo" alt="">
                                 </div>
                                 <div class="card-carousel-body px-2 pb-2 border">
                                     <div style="margin-bottom: -19px">
-                                        <p class="small"><strong>Curso: Curso</strong></p>
+                                        <p class="small"><strong>Curso: {{course.name}}</strong></p>
                                     </div>
                                     <div>
-                                        <star-rating :rating="3" :show-rating="false" :read-only="true" :star-size="16"></star-rating>
+                                        <star-rating :rating="course.averageRating" :show-rating="false" :read-only="true" :star-size="16"></star-rating>
                                     </div>
-                                    <p class="small"><strong>Profesional</strong>User</p>
-                                    <p class="small"><strong>Price</strong></p>
-                                    <p class="small"><strong>Promotion</strong> <span><small><del>Price</del></small></span></p>
+                                    <p class="small"><strong>Profesional </strong>{{course.user.name}}</p>
+                                    <p class="small"><strong>Price </strong>{{course.price}}</p>
+                                    <p class="small"><strong>Promotion </strong> <span><small><del>{{course.price}}</del></small></span>{{course.promotional_price}}</p>
                                     <button class="btn btn-custom-blue btn-rounded carousel-btn">Ver</button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row justify-content-center mt-5">
+                        <button class="col-md-4 btn text-white" style="background: var(--blue);">Ver mas Cursos</button>
+                        <div class="col-md-10 text-center">
+                            <h3>Sube<span class="text-danger">gratis</span>tus cursos y <span class="text-danger">clases</span></h3>
+                            <h3>Solo da <span class="text-danger">click</span> aqui</h3>
+                        </div>
+                        <button class="col-md-3 btn text-white" style="background: var(--blue);">Registrate</button>
                     </div>
                 </div>
             </div>
@@ -140,6 +178,7 @@
             getCourses(){
                 axios.get('api/get-courses-data').then((response)=>{
                     this.courses = response.data.data;
+                    console.log(this.courses);
                 }).catch(error => {
                   console.log(error.response);
                 });

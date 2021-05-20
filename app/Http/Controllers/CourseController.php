@@ -21,8 +21,8 @@ class CourseController extends Controller
         $this->_file = new FileController;
     }
 
-    public function getUserData(){
-        $courses = Course::orderBy('id','desc')->paginate(6);
+    public function getCourseData(){
+        $courses = Course::with('user')->orderBy('id','desc')->paginate(6);
         return $courses;
     }
     
