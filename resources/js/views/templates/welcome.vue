@@ -49,17 +49,21 @@
                     <div class="col-6 py-3 d-flex align-items-center justify-content-center text-white" style="background:#133C4E;">
                         <div class="row align-items-center justify-content-center">
                             <ul class="nav navbar-nav d-contents">
-                                <li class="nav-item mega-menu-item h-0 d-flex align-items-center">
+                                <li class="nav-item mega-menu-item-2 h-0 d-flex align-items-center">
                                     <i class="ti-menu-alt mr-2"></i> Categorías
-                                    <ul class="mega-menu-item-ul categorymenu">
-                                        <li><router-link :to="{ name: 'search', query: {promotion: true}}" class="text-uppercase">EN PROMOCIÓN</router-link></li>
+                                    <ul class="mega-menu-item-ul-2 categorymenu">
+                                        <li>
+                                            <!-- <router-link :to="{ name: 'search', query: {promotion: true}}" class="text-uppercase">EN PROMOCIÓN</router-link> -->
+                                            <a href="javascript:void(0)" class="text-uppercase">EN PROMOCIÓN</a>
+                                        </li>
                                         <li v-for="cat in Category" class="">
-                                            <router-link :to="{ name: 'search', query: {thematic: cat.id}}" class="text-uppercase">{{cat.name}}</router-link>
+                                            <a href="javascript:void(0)" class="text-uppercase" @click="searchByCategory(cat.id)">{{cat.name}}</a>
+                                            <!-- <router-link :to="{ name: 'search', query: {thematic: cat.id}}" class="text-uppercase">{{cat.name}}</router-link> -->
 
                                             <ul class="mega-menu-submenu">
                                                 <li v-for="sub in cat.subtopics">
-                                                    <!-- <a class="text-uppercase" href="#">{{sub.name}}</a> -->
-                                                    <router-link :to="{ name: 'search', query: {subtopic: sub.id}}" class="text-uppercase">{{sub.name}}</router-link>
+                                                    <a class="text-uppercase" href="javascript:void(0)" @click="searchBySubtopic(sub.id)">{{sub.name}}</a>
+                                                    <!-- <router-link :to="{ name: 'search', query: {subtopic: sub.id}}" class="text-uppercase">{{sub.name}}</router-link> -->
                                                 </li>
                                             </ul>
                                         </li>
@@ -200,6 +204,21 @@
             };
         },
         methods: {
+            searchByCategory(cat_id){
+                this.professionals = [];
+                this.courses = [];
+                axios.get('api/filter-by-category?cat_id='+cat_id).then((response)=>{
+                    this.courses = response.data;
+                    for(var i=0; i<response.data.length; i++){
+                        this.courses.push(response.data.user);
+                    }
+                });
+            },
+            searchBySubtopic(sub_id){
+                axios.get('api/filter-by-subtopic?sub_id='+sub_id).then((response)=>{
+
+                });
+            },
             getProfessionals(){
                 axios.get('api/get-user-data').then((response)=>{
                     this.professionals = response.data.data;
@@ -210,7 +229,6 @@
             getCourses(){
                 axios.get('api/get-courses-data').then((response)=>{
                     this.courses = response.data.data;
-                    console.log(this.courses);
                 }).catch(error => {
                   console.log(error.response);
                 });
@@ -218,7 +236,7 @@
             getWelcomeData: function() {
                 let url = '/api/welcome';
                 axios.post(url).then(response => {
-                    console.log(response.data, 'DataThematic');
+                    // console.log(response.data, 'DataThematic');
                     let thematics = response.data;
                     thematics.forEach(item => {
                         if (item.items.length >0){

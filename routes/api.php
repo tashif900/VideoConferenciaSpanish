@@ -145,6 +145,8 @@ Route::group(['middleware' => ['auth:api']], function(){
 
 Route::get('get-user-data','UserController@getUserData');
 Route::get('get-courses-data','CourseController@getCourseData');
+Route::get('filter-by-category','CourseController@filterByCategory');
+Route::get('filter-by-subtopic','CourseController@filterBySubtopic');
 
 Route::post('/store-course', 'CourseController@saveCourse');
 Route::get('get-deals', 'DealsController@getDeals');

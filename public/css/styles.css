@@ -587,7 +587,7 @@ footer {
 
 /* Mega menu */
 
-.mega-menu-item {
+.mega-menu-item,.mega-menu-item-2 {
     list-style: none;
     cursor: pointer;
     margin-right: 30px;
@@ -596,16 +596,16 @@ footer {
     font-size: 0.8em;
 }
 
-.mega-menu-item-ul.show-mega-menu {
+.mega-menu-item-ul.show-mega-menu,.mega-menu-item-ul-2.show-mega-menu {
     display: block;
 }
 
-.mega-menu-item-ul {
+.mega-menu-item-ul,.mega-menu-item-ul-2 {
     list-style: none;
     padding: 0;
     margin: 0;
     position: absolute;
-    background: var(--red);
+    background: var(--blue);
     width: 320px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -614,31 +614,32 @@ footer {
     z-index: 9999;
 }
 
-.mega-menu-item-ul li {
+.mega-menu-item-ul li,.mega-menu-item-ul-2 li {
     padding-left: 15px;
     padding-right: 15px;
     line-height: 2em;
     height: 2em;
+    border-bottom: 1px solid white;
 }
-.mega-menu-item-ul .mega-menu-submenu {
-    background: #a41e3b;
+.mega-menu-item-ul .mega-menu-submenu, .mega-menu-item-ul-2 .mega-menu-submenu{
+    background: rgb(32, 88, 112);;
     position: absolute;
     width: 370px;
     right: -360px;
     font-size: 0.85em;
     list-style: none;
-    padding: 0;
+    padding: 10px 0px;
     margin: 0;
     display: none;
     top: 15px;
 }
-.mega-menu-item-ul li:hover {
-    background: #79162b;
+.mega-menu-item-ul li:hover,.mega-menu-item-ul-2 li:hover {
+    background: #7496f5;
 }
-.mega-menu-item-ul li:hover .mega-menu-submenu {
+.mega-menu-item-ul li:hover .mega-menu-submenu,.mega-menu-item-ul-2 li:hover .mega-menu-submenu {
     display: block;
 }
-.mega-menu-item-ul li a {
+.mega-menu-item-ul li a,.mega-menu-item-ul-2 li a {
     color: #fff;
 }
 

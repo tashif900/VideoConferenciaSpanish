@@ -120,6 +120,9 @@
             $('.mega-menu-item').click(function() {
                 $('.mega-menu-item-ul').toggleClass('show-mega-menu');
             });
+            $('.mega-menu-item-2').click(function() {
+                $('.mega-menu-item-ul-2').toggleClass('show-mega-menu');
+            });
             $('#show-modal-date').click(function() {
                 $('#modaldate').modal('show');
             });

@@ -25,6 +25,16 @@ class CourseController extends Controller
         $courses = Course::with('user')->orderBy('id','desc')->paginate(6);
         return $courses;
     }
+
+    public function filterByCategory(Request $request){
+        return Course::with('user')->whereHas('subtopic',function($query)use($request){
+            $query->where('thematic_id',$request->cat_id);
+        })->get();
+    }
+
+    public function filterBySubtopic(){
+
+    }
     
     public function saveCourse(Request $request){
         $rules = [
