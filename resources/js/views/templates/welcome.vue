@@ -56,13 +56,13 @@
                                             <!-- <router-link :to="{ name: 'search', query: {promotion: true}}" class="text-uppercase">EN PROMOCIÓN</router-link> -->
                                             <a href="javascript:void(0)" class="text-uppercase">EN PROMOCIÓN</a>
                                         </li>
-                                        <li v-for="cat in Category" class="">
-                                            <a href="javascript:void(0)" class="text-uppercase" @click="searchByCategory(cat.id)">{{cat.name}}</a>
+                                        <li v-for="cat,index in Category" v-bind:key="index" class="" @click="searchByCategory(cat.id)">
+                                            <a href="javascript:void(0)" class="text-uppercase">{{cat.name}}</a>
                                             <!-- <router-link :to="{ name: 'search', query: {thematic: cat.id}}" class="text-uppercase">{{cat.name}}</router-link> -->
 
                                             <ul class="mega-menu-submenu">
-                                                <li v-for="sub in cat.subtopics">
-                                                    <a class="text-uppercase" href="javascript:void(0)" @click="searchBySubtopic(sub.id)">{{sub.name}}</a>
+                                                <li v-for="sub,index in cat.subtopics" v-bind:key="index" @click="searchBySubtopic(sub.id)">
+                                                    <a class="text-uppercase" href="javascript:void(0)">{{sub.name}}</a>
                                                     <!-- <router-link :to="{ name: 'search', query: {subtopic: sub.id}}" class="text-uppercase">{{sub.name}}</router-link> -->
                                                 </li>
                                             </ul>
