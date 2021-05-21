@@ -75,7 +75,7 @@
                                     </select>
                                 </li>
                                 <li class="nav-item nav-search-category d-flex align-items-center">
-                                    <input type="text" v-model="searchInput" placeholder="Buscar...">
+                                    <input type="text" v-model="searchInput" placeholder="Buscar..." @keyup="filterResult()">
                                     <i class="ti-search text-white ml-2 pointer"></i>
                                 </li>
                                 
@@ -200,10 +200,27 @@
                 professionals:[],
                 courses:[],
                 searchCategory: 1,
-                searchInput: null,
+                searchInput: "",
             };
         },
         methods: {
+            filterResult(){
+                if(this.searchInput.length > 0 ){
+                    var searchlength = this.searchInput.length%3;
+                    if(searchlength == 0){
+                        this.professionals = [];
+                        console.log('njasn');
+                        axios.get('api/filter-by-search?cat_id='+this.searchCategory+'&search='+this.searchInput).then((response)=>{
+                            this.courses = response.data;
+                            for(var i=0; i<response.data.length; i++){
+                                console.log(response.data[i].user);
+                                this.professionals.push(response.data[i].user);
+                            }
+                        });
+                    }
+
+                }
+            },
             searchByCategory(cat_id){
                 this.professionals = [];
                 this.courses = [];

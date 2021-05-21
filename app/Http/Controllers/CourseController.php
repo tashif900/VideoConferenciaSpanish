@@ -37,6 +37,13 @@ class CourseController extends Controller
             $query->where('id',$request->sub_id);
         })->get();
     }
+
+    public function filterBySearch(Request $request){
+        return Course::with('user')->whereHas('subtopic',function($query)use($request){
+                            $query->where('thematic_id',$request->cat_id);
+                        })->where('name','like','%'.$request->search.'%')
+                        ->get();
+    }
     
     public function saveCourse(Request $request){
         $rules = [

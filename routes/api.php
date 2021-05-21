@@ -147,6 +147,7 @@ Route::get('get-user-data','UserController@getUserData');
 Route::get('get-courses-data','CourseController@getCourseData');
 Route::get('filter-by-category','CourseController@filterByCategory');
 Route::get('filter-by-subtopic','CourseController@filterBySubtopic');
+Route::get('filter-by-search','CourseController@filterBySearch');
 
 Route::post('/store-course', 'CourseController@saveCourse');
 Route::get('get-deals', 'DealsController@getDeals');
