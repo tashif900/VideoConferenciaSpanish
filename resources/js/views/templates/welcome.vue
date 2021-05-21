@@ -43,14 +43,44 @@
             <div class="row d-flex px-2">
 
                 <div class="col-md-12 text-center mt-4 mb-2" style="color:#133C4E;">
-                    <h3>Encuentra a un professional o un servicio</h3>
+                    <h2>Encuentra a un professional o un servicio</h2>
                 </div>
                 <div class="col-md-12 d-flex justify-content-center mb-4">
-                    <div class="col-5 p-3 d-flex align-items-center text-white" style="background:#133C4E;">
-                        <div class="col-md-2 d-flex align-items-center">
-                            <i class="ti-menu-alt"></i>&nbsp;<span class="small">Categories</span>
+                    <div class="col-6 py-3 d-flex align-items-center justify-content-center text-white" style="background:#133C4E;">
+                        <div class="row align-items-center justify-content-center">
+                            <ul class="nav navbar-nav d-contents">
+                                <li class="nav-item mega-menu-item h-0 d-flex align-items-center">
+                                    <i class="ti-menu-alt mr-2"></i> Categorías
+                                    <ul class="mega-menu-item-ul categorymenu">
+                                        <li><router-link :to="{ name: 'search', query: {promotion: true}}" class="text-uppercase">EN PROMOCIÓN</router-link></li>
+                                        <li v-for="cat in Category" class="">
+                                            <router-link :to="{ name: 'search', query: {thematic: cat.id}}" class="text-uppercase">{{cat.name}}</router-link>
+
+                                            <ul class="mega-menu-submenu">
+                                                <li v-for="sub in cat.subtopics">
+                                                    <!-- <a class="text-uppercase" href="#">{{sub.name}}</a> -->
+                                                    <router-link :to="{ name: 'search', query: {subtopic: sub.id}}" class="text-uppercase">{{sub.name}}</router-link>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item mr-3 p-2 d-flex align-items-center category-dropdown">
+                                    <select class="category-dropdown-menu" name="" id="" v-model="searchCategory">
+                                        <option class="text-dark" v-for="cat in Category" :value =cat.id>{{cat.name}}</option>
+                                    </select>
+                                </li>
+                                <li class="nav-item nav-search-category d-flex align-items-center">
+                                    <input type="text" v-model="searchInput" placeholder="Buscar...">
+                                    <i class="ti-search text-white ml-2 pointer"></i>
+                                </li>
+                                
+                                <!-- <li v-if="!islogin" class="nav-item"><a class="nav-link text-uppercase" id="show-modal-date" data-toggle="none" href="#">Entrar a la Sesión</a></li> -->
+                                <!-- <li v-if="!islogin" class="nav-item"><router-link class="nav-link text-uppercase" data-toggle="none" to="/add-date">Crear Sesión</router-link></li> -->
+                                <!-- <li class="nav-item"><a class="nav-link text-uppercase" data-toggle="none" href="#">Crear Cita</a></li>-->
+                            </ul>
                         </div>
-                        <div class="col-md-4 ml-3">
+                        <!-- <div class="col-md-4 ml-3">
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle small" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Finanzas y contabilidad
@@ -67,7 +97,7 @@
                                 <input type="text" placeholder="Buscar...">
                                 <i class="ti-search text-white ml-2 pointer"></i>
                             </li>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -165,6 +195,8 @@
                 data: [],
                 professionals:[],
                 courses:[],
+                searchCategory: 1,
+                searchInput: null,
             };
         },
         methods: {
@@ -239,5 +271,27 @@
 
     .card-carousel{
         height: 350px !important;
+    }
+
+    .d-contents{
+        display: contents !important;
+    }
+    .h-0{
+        height: 0px;
+    }
+    .category-dropdown{
+        border: 3px solid steelblue;
+        border-radius: 12px;
+        height: 36px;
+    }
+    .category-dropdown-menu{
+        background: transparent;
+        color: white;
+        outline: none;
+        border: none;
+    }
+    .categorymenu{
+        top: 0%;
+        margin-top: 45%;
     }
 </style>
