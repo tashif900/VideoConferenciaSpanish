@@ -114,12 +114,12 @@
                         <div class="col-md-4 class-carousel" v-for="professional,index in professionals" v-bind:key=index>
                             <div class="card-carousel">
                                 <div class="card-carousel-img d-flex justify-content-center align-items-end pointer">
-                                    <img :src="professional.user_photo" alt="">
+                                    <img :src="professional.photo" alt="">
                                     <!-- <img v-else src="img/002.jpg" alt=""> -->
                                 </div>
                                 <div class="card-carousel-body px-2 pb-2 border">
                                     <div style="margin-bottom: -19px">
-                                        <p class="small"><strong>{{professional.user_name}}</strong></p>
+                                        <p class="small"><strong>{{professional.name}}</strong></p>
                                     </div>
                                     <div>
                                         <star-rating :rating="3" :show-rating="false" :read-only="true" :star-size="16"></star-rating>
@@ -210,13 +210,20 @@
                 axios.get('api/filter-by-category?cat_id='+cat_id).then((response)=>{
                     this.courses = response.data;
                     for(var i=0; i<response.data.length; i++){
-                        this.courses.push(response.data.user);
+                        console.log(response.data[i].user);
+                        this.professionals.push(response.data[i].user);
                     }
                 });
             },
             searchBySubtopic(sub_id){
+                this.professionals = [];
+                this.courses = [];
                 axios.get('api/filter-by-subtopic?sub_id='+sub_id).then((response)=>{
-
+                    this.courses = response.data;
+                    for(var i=0; i<response.data.length; i++){
+                        console.log(response.data[i].user);
+                        this.professionals.push(response.data[i].user);
+                    }
                 });
             },
             getProfessionals(){

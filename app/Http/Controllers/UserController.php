@@ -20,7 +20,7 @@ class UserController extends Controller
 {
     public function getUserData(){
         $users = DB::table('users')
-                    ->select('users.name as user_name','users.photo as user_photo')
+                    ->select('users.name as name','users.photo as photo')
                     ->join('model_has_roles','users.id','=','model_has_roles.model_id')
                     ->join('roles','model_has_roles.role_id','=','roles.id')
                     ->where('roles.name','Profesor')

@@ -32,8 +32,10 @@ class CourseController extends Controller
         })->get();
     }
 
-    public function filterBySubtopic(){
-
+    public function filterBySubtopic(Request $request){
+        return Course::with('user')->whereHas('subtopic',function($query)use($request){
+            $query->where('id',$request->sub_id);
+        })->get();
     }
     
     public function saveCourse(Request $request){
