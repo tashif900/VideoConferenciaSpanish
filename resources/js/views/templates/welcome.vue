@@ -52,6 +52,9 @@
                                 <li class="nav-item mega-menu-item-2 h-0 d-flex align-items-center">
                                     <i class="ti-menu-alt mr-2"></i> Categorías
                                     <ul class="mega-menu-item-ul-2 categorymenu">
+                                        <li @click="searchByCategory(0)">
+                                            <a href="javascript:void(0)" class="text-uppercase">mostrar toda la categoría</a>
+                                        </li>
                                         <li>
                                             <!-- <router-link :to="{ name: 'search', query: {promotion: true}}" class="text-uppercase">EN PROMOCIÓN</router-link> -->
                                             <a href="javascript:void(0)" class="text-uppercase">EN PROMOCIÓN</a>
@@ -71,6 +74,7 @@
                                 </li>
                                 <li class="nav-item mr-3 p-2 d-flex align-items-center category-dropdown">
                                     <select class="category-dropdown-menu" name="" id="" v-model="searchCategory">
+                                        <option class="text-dark" value="0">Mostrar toda la categoría</option>
                                         <option class="text-dark" v-for="cat in Category" :value =cat.id>{{cat.name}}</option>
                                     </select>
                                 </li>
@@ -208,12 +212,10 @@
                 if(this.searchInput.length > 0 ){
                     var searchlength = this.searchInput.length%3;
                     if(searchlength == 0){
-                        this.professionals = [];
-                        console.log('njasn');
                         axios.get('api/filter-by-search?cat_id='+this.searchCategory+'&search='+this.searchInput).then((response)=>{
+                            this.professionals = [];
                             this.courses = response.data;
                             for(var i=0; i<response.data.length; i++){
-                                console.log(response.data[i].user);
                                 this.professionals.push(response.data[i].user);
                             }
                         });
@@ -224,13 +226,19 @@
             searchByCategory(cat_id){
                 this.professionals = [];
                 this.courses = [];
-                axios.get('api/filter-by-category?cat_id='+cat_id).then((response)=>{
-                    this.courses = response.data;
-                    for(var i=0; i<response.data.length; i++){
-                        console.log(response.data[i].user);
-                        this.professionals.push(response.data[i].user);
-                    }
-                });
+                if(cat_id == 0){
+                    this.getProfessionals();
+                    this.getCourses();
+                }
+                else{
+                    axios.get('api/filter-by-category?cat_id='+cat_id).then((response)=>{
+                        this.courses = response.data;
+                        for(var i=0; i<response.data.length; i++){
+                            console.log(response.data[i].user);
+                            this.professionals.push(response.data[i].user);
+                        }
+                    });
+                }
             },
             searchBySubtopic(sub_id){
                 this.professionals = [];

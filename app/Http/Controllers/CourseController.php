@@ -39,6 +39,9 @@ class CourseController extends Controller
     }
 
     public function filterBySearch(Request $request){
+        if($request->cat_id == 0){
+            return Course::with('user')->where('name','like','%'.$request->search.'%')->get();
+        }
         return Course::with('user')->whereHas('subtopic',function($query)use($request){
                             $query->where('thematic_id',$request->cat_id);
                         })->where('name','like','%'.$request->search.'%')
